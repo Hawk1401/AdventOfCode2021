@@ -10,36 +10,50 @@ namespace Helper
     public interface IDay
     {
 
-        public void Run(int TestResultPartOne)
+
+        
+
+        public void Run<I>(int testResultPartOne, Func<string, I> parser)
         {
-            var Testnums = File.ReadAllLines("testInput.txt").Select(x => int.Parse(x)).ToList();
-            var TestReult = PartOne(Testnums);
-            ConsoleHelper.PrintTest(TestReult, TestResultPartOne);
+            //paring Data
+            var dataTuple = parseData(parser);
 
-
-            var nums = File.ReadAllLines("input.txt").Select(x => int.Parse(x)).ToList();
-            ConsoleHelper.PrintFirstResult(PartOne(nums));
+            RunPartOne(testResultPartOne, dataTuple.testData, dataTuple.data);
         }
 
-        public void Run(int TestResultPartOne, int TestResultPartTwo)
+        public void Run<I>(int TestResultPartOne, int TestResultPartTwo, Func<string, I> parser)
         {
-            var Testnums = File.ReadAllLines("testInput.txt").Select(x => int.Parse(x)).ToList();
-            var TestReult = PartOne(Testnums);
-            ConsoleHelper.PrintTest(TestReult, TestResultPartOne);
+            var dataTuple = parseData(parser);
 
+            RunPartOne(TestResultPartOne, dataTuple.testData, dataTuple.data);
+            RunPartTwo(TestResultPartTwo, dataTuple.testData, dataTuple.data);
+        }
 
-            var nums = File.ReadAllLines("input.txt").Select(x => int.Parse(x)).ToList();
-            ConsoleHelper.PrintFirstResult(PartOne(nums));
+        public void RunPartOne<I>(int testResultPartOne, I testData, I data)
+        {
+            var testReult = PartOne(testData);
+            ConsoleHelper.PrintTest(testReult, testResultPartOne);
+            ConsoleHelper.PrintFirstResult(PartOne(data));
+        }
 
-            //Part Two 
-            var TestReultPartTwo = PartTwo(Testnums);
-            ConsoleHelper.PrintTest(TestReultPartTwo, 5);
-            ConsoleHelper.PrintSecondResult(PartTwo(nums));
+        public void RunPartTwo<I>(int testResultPartTwo, I testData, I data)
+        {
+            var TestReultPartTwo = PartTwo(testData);
+            ConsoleHelper.PrintTest(TestReultPartTwo, testResultPartTwo);
+            ConsoleHelper.PrintSecondResult(PartTwo(data));
+        }
+
+        public (List<I> testData, List<I> data) parseData<I>(Func<string, I> parser)
+        {
+            var testData = File.ReadAllLines("testInput.txt").Select(parser).ToList();
+            var data = File.ReadAllLines("input.txt").Select(parser).ToList();
+
+            return (testData, data);
         }
 
 
-        public int PartOne(List<int> nums);
-        public int PartTwo(List<int> nums);
+        public long PartOne<T>(T Data);
+        public long PartTwo<T>(T Data);
 
     }
 }

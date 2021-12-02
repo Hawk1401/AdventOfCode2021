@@ -10,11 +10,12 @@ namespace Day1
         static void Main(string[] args)
         {
             IDay o = new Day1();
-            o.Run(7,5);
+            o.Run(7 , 5, x=> int.Parse(x));
         }
 
-        public int PartOne(List<int> nums)
+        public long PartOne<T>(T Data)
         {
+            var nums = Data as List<int>;
             int count = 0;
             for (int i = 1; i < nums.Count; i++)
             {
@@ -26,8 +27,10 @@ namespace Day1
 
             return count;
         }
-        public int PartTwo(List<int> nums)
+        public long PartTwo<T>(T Data)
         {
+            var nums = Data as List<int>;
+
             int count = 0;
 
             int prev = nums[0] + nums[1] + nums[2];

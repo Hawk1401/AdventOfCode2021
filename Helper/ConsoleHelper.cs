@@ -22,10 +22,8 @@ namespace Helper
         public static void PrintFirstResult(long result)
         {
             Console.WriteLine();
-            Console.WriteLine();
             Console.WriteLine($"The result Of the First Problem is {result}");
             Console.WriteLine("#############################################");
-            Console.WriteLine();
 
 
 
@@ -33,7 +31,6 @@ namespace Helper
 
         public static void PrintSecondResult(long result)
         {
-            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"The result Of the Second Problem is {result}");
         }
