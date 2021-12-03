@@ -9,13 +9,8 @@ namespace Helper
 {
     public interface IDay
     {
-
-
-        
-
         public void Run<I>(int testResultPartOne, Func<string, I> parser)
         {
-            //paring Data
             var dataTuple = parseData(parser);
 
             RunPartOne(testResultPartOne, dataTuple.testData, dataTuple.data);
