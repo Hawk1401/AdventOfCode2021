@@ -9,7 +9,7 @@
 |3    | ✔️     |    ✔️ |
 
 
-## Perfomance (Meachert witch BenchmarkDotNet)
+## Perfomance (Measured with BenchmarkDotNet)
  |          Method |         Mean |      Error |     StdDev |       Median |   Gen 0 |  Gen 1 | Allocated |
 |---------------- |-------------:|-----------:|-----------:|-------------:|--------:|-------:|----------:|
 | Day1PartOneTest |     12.69 ns |   0.405 ns |   1.195 ns |     13.60 ns |       - |      - |         - |
