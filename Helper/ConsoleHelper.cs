@@ -6,14 +6,19 @@ namespace Helper
     {
         public static void PrintTest(long result, long expected)
         {
+            Console.Write("The test was ");
             if(result == expected)
             {
-                Console.WriteLine("The test was successfully");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("successfully");
             }
             else
             {
-                Console.WriteLine("The test was notsuccessfully");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("notsuccessfully");
             }
+
+            Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine($"The Test returned {result}, expected was {expected}");
 
