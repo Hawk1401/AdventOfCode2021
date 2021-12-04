@@ -19,11 +19,28 @@ namespace Helper
         public void Run<I>(int TestResultPartOne, int TestResultPartTwo, Func<string, I> parser)
         {
             var dataTuple = parseData(parser);
-
             RunPartOne(TestResultPartOne, dataTuple.testData, dataTuple.data);
+
+            dataTuple = parseData(parser);
             RunPartTwo(TestResultPartTwo, dataTuple.testData, dataTuple.data);
         }
 
+        public void Run<I>(int testResultPartOne, Func<string[], I> parser)
+        {
+            var dataTuple = CustomParseData(parser);
+
+            RunPartOne(testResultPartOne, dataTuple.testData, dataTuple.data);
+        }
+
+        public void Run<I>(int TestResultPartOne, int TestResultPartTwo, Func<string[], I> parser)
+        {
+            var dataTuple = CustomParseData(parser);
+
+            RunPartOne(TestResultPartOne, dataTuple.testData, dataTuple.data);
+
+            dataTuple = CustomParseData(parser);
+            RunPartTwo(TestResultPartTwo, dataTuple.testData, dataTuple.data);
+        }
         public void RunPartOne<I>(int testResultPartOne, I testData, I data)
         {
             var testReult = PartOne(testData);
@@ -42,6 +59,14 @@ namespace Helper
         {
             var testData = File.ReadAllLines("testInput.txt").Select(parser).ToList();
             var data = File.ReadAllLines("input.txt").Select(parser).ToList();
+
+            return (testData, data);
+        }
+
+        public (I testData, I data) CustomParseData<I>(Func<string[], I> parser)
+        {
+            var testData = parser.Invoke(File.ReadAllLines("testInput.txt"));
+            var data = parser.Invoke(File.ReadAllLines("input.txt"));
 
             return (testData, data);
         }
