@@ -49,6 +49,11 @@ namespace Day4
         private bool Won = false;
         public int Score => _Score;
 
+        public Board()
+        {
+
+        }
+
         public Board(string[] text, int offset)
         {
             matrix = new int[5][];
@@ -178,12 +183,22 @@ namespace Day4
 
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public Board Copy()
+        {
+            return new Board() { map = new Dictionary<int, (int x, int y)>(map), matrix = matrix };
+        }
     }
     public class Bingo
     {
         private int[] numbers;
         private int index;
         private List<Board> boards;
+
+        public Bingo()
+        {
+
+        }
         public Bingo(int[] numbers, List<Board> boards)
         {
             this.numbers = numbers;
@@ -233,7 +248,6 @@ namespace Day4
 
             return false;
         }
-
         public bool  CallNumberForLosser(int number, out int score)
         {
 
@@ -253,6 +267,11 @@ namespace Day4
             }
             score = -1;
             return false;
+        }
+
+        public Bingo Copy()
+        {
+            return new Bingo() { numbers = numbers, index = 0, boards = boards.Select(x => x.Copy()).ToList() };
         }
     }
 }
