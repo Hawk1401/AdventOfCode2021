@@ -5,20 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper
+namespace Core
 {
     public interface IDay
     {
         public int dayNumber { get; }
         public int year { get; }
-
         public long? FirstTestValue { get; }
         public long? SecondTestValue { get; }
         public string[] TestInput { get; }
 
+
+
         public object Parser(string[] arg);
         public long PartOne<T>(T Data);
         public long PartTwo<T>(T Data);
+
+
 
         public void Run(string[] Input)
         {

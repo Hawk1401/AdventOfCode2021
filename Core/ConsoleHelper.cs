@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Helper
+namespace Core
 {
     public class ConsoleHelper
     {

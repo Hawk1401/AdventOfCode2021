@@ -1,4 +1,4 @@
-﻿using Helper;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ namespace Year2021.Days
     public class Day5 : IDay
     {
         public long? FirstTestValue => 5;
-
         public long? SecondTestValue => 12;
-
+        public int dayNumber => 5;
+        public int year => 2021;
         public string[] TestInput => new string[]{
         "0,9 -> 5,9",
         "8,0 -> 0,8",
@@ -26,9 +26,6 @@ namespace Year2021.Days
         "5,5 -> 8,2"
         };
 
-        public int dayNumber => 5;
-
-        public int year => 2021;
 
         public object Parser(string[] arg)
         {
