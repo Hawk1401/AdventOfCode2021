@@ -1,12 +1,11 @@
 ﻿using Core;
-using System;
 using Year2021.Days;
 
 namespace Year2021
 {
-    class Program
+    public class Entry
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             DayRunner.Run(new Day1());
             DayRunner.Run(new Day2());

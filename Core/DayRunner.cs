@@ -9,6 +9,7 @@ namespace Core
 {
     public class DayRunner
     {
+        public static string session = ""; 
         public static void Run(IDay day)
         {
             var input = GetInputAsync(day);
@@ -27,9 +28,6 @@ namespace Core
             {
                 return Cache[(day, year)];
             }
-
-
-            var session = "";
 
             if (string.IsNullOrWhiteSpace(session))
             {
