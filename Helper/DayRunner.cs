@@ -11,11 +11,16 @@ namespace Helper
     {
         public static void Run(IDay day)
         {
-            var input = GetInputAsync(day.dayNumber, day.year).Result;
+            var input = GetInputAsync(day);
             day.Run(input);
         }
 
         private static Dictionary<(int day, int year), string[]> Cache = new Dictionary<(int day, int year), string[]>();
+
+        public static string[] GetInputAsync(IDay day)
+        {
+            return GetInputAsync(day.dayNumber, day.year).Result;
+        }
         public static async Task<string[]> GetInputAsync(int day, int year)
         {
             if(Cache.ContainsKey((day, year)))
