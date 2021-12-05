@@ -19,21 +19,26 @@ The goal is to play around and try new concepts in c#
 A session token is required to fetch the puzzle input. 
 There are two different ways to provide the session token 
 
-### The first way: 
+### Add session token in source code
 
 
 Store the session token in the static variable "session",
 This variable can be found in the "DayRunner" class in the "Core" namespace.
 
-### The second way:
 
+
+
+### Add session token as environment variable
 
 It is also possible to store the session token as an environment variable. The name of the variable must be "SessionAdventofcode".
 
+
+
 ### Find the session token:
 
-
 To find the session token you have to login to "adventofcode.com", open the dev tool, then Application → Cookies → https://adventofcode.com and finally copy the value of "Session".
+
+
 
 
 ### Get started
