@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Day5
+namespace Year2021.Days
 {
     public class Day5 : IDay
     {
@@ -24,13 +26,15 @@ namespace Day5
         "5,5 -> 8,2"
         };
 
-        static void Main(string[] args)
-        {
-            IDay day = new Day5();
-            day.Run(5, 12, Parser);
-        }
+        public int dayNumber => 5;
 
-        public static Line Parser(string s)
+        public int year => 2021;
+
+        public object Parser(string[] arg)
+        {
+            return arg.Select(x => Parser(x)).ToList();
+        }
+        public Line Parser(string s)
         {
             var splits = s.Split("->");
 
@@ -87,11 +91,13 @@ namespace Day5
 
             return map.Values.ToList().Where(x => x > 1).Count();
         }
+
+        
     }
 
     public class Line
     {
-        public  (int x1, int y1) Start;
+        public (int x1, int y1) Start;
         public (int x2, int y2) End;
 
         public Line((int x1, int y1) Start, (int x2, int y2) End)
@@ -104,10 +110,10 @@ namespace Day5
         public List<(int x, int y)> GetPointsPartOne()
         {
             var Points = new List<(int x, int y)>();
-           
 
 
-            if(Start.x1 == End.x2)
+
+            if (Start.x1 == End.x2)
             {
                 int x = Start.x1;
                 int max = Math.Max(Start.y1, End.y2);
@@ -143,7 +149,7 @@ namespace Day5
 
             // add diagonal 
             if (Start.x1 != End.x2 && Start.y1 != End.y2)
-            { 
+            {
                 Points.AddRange(AddDiagonal());
             }
 
@@ -152,7 +158,7 @@ namespace Day5
 
         private List<(int x, int y)> AddDiagonal()
         {
-            if(Start.x1 < End.x2)
+            if (Start.x1 < End.x2)
             {
                 return AddDiagonal(Start, End);
             }

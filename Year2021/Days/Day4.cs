@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Day4
+namespace Year2021.Days
 {
     public class Day4 : IDay
     {
@@ -33,10 +35,20 @@ namespace Day4
         " 2  0 12  3  7",
         };
 
-        static void Main(string[] args)
+        public int dayNumber => 4;
+
+        public int year => 2021;
+        public object Parser(string[] arg)
         {
-            IDay day = new Day4();
-            day.Run(4512, 1924, Parse);
+            var BinogNumbers = arg[0].Split(",").Select(x => int.Parse(x)).ToArray();
+
+            List<Board> boards = new List<Board>();
+            for (int i = 2; i < arg.Length; i += 6)
+            {
+                boards.Add(new Board(arg, i));
+            }
+
+            return new Bingo(BinogNumbers, boards);
         }
 
         public long PartOne<T>(T Data)
@@ -51,18 +63,6 @@ namespace Day4
             return game.GetLastWinning();
         }
 
-        public object Parser(string[] arg)
-        {
-            var BinogNumbers = arg[0].Split(",").Select(x => int.Parse(x)).ToArray();
-
-            List<Board> boards = new List<Board>();
-            for (int i = 2; i < arg.Length; i += 6)
-            {
-                boards.Add(new Board(arg, i));
-            }
-
-            return new Bingo(BinogNumbers, boards);
-        }
     }
     public class Board
     {
@@ -83,10 +83,10 @@ namespace Day4
             map = new Dictionary<int, (int x, int y)>();
 
 
-            for (int i = offset; i < offset+5; i++)
+            for (int i = offset; i < offset + 5; i++)
             {
                 int index = i - offset;
-                matrix[index] = text[i].Trim().Split(" ").Where(x=> !String.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x)).ToArray();
+                matrix[index] = text[i].Trim().Split(" ").Where(x => !String.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x)).ToArray();
 
                 for (int j = 0; j < matrix[index].Length; j++)
                 {
@@ -125,14 +125,15 @@ namespace Day4
             return
                 checkHorizontal(coordinates) ||
                 checkVertical(coordinates);
-                //checkDiagonal(coordinates);
+            //checkDiagonal(coordinates);
         }
 
         private bool checkHorizontal((int x, int y) coordinates)
         {
             for (int x = 0; x < 5; x++)
             {
-                if (map.ContainsKey(matrix[x][coordinates.y])){
+                if (map.ContainsKey(matrix[x][coordinates.y]))
+                {
                     return false;
                 }
             }
@@ -153,7 +154,7 @@ namespace Day4
 
         private bool checkDiagonal((int x, int y) coordinates)
         {
-            if(coordinates.x != coordinates.y)
+            if (coordinates.x != coordinates.y)
             {
                 return false;
             }
@@ -190,7 +191,7 @@ namespace Day4
                     }
 
                     string s = "";
-                    if(matrix[x][y] < 10)
+                    if (matrix[x][y] < 10)
                     {
                         s += " " + matrix[x][y];
                     }
@@ -234,7 +235,7 @@ namespace Day4
         {
             foreach (var number in numbers)
             {
-                if(CallNumber(number, out int result))
+                if (CallNumber(number, out int result))
                 {
                     return result;
                 }
@@ -271,7 +272,7 @@ namespace Day4
 
             return false;
         }
-        public bool  CallNumberForLosser(int number, out int score)
+        public bool CallNumberForLosser(int number, out int score)
         {
 
             List<Board> _boards = new List<Board>(boards);
@@ -280,7 +281,7 @@ namespace Day4
             {
                 if (board.Gusse(number))
                 {
-                    if(boards.Count == 1)
+                    if (boards.Count == 1)
                     {
                         score = board.Score;
                         return true;
