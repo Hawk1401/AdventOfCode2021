@@ -27,7 +27,7 @@ namespace Year2021.Days
         public long PartOne<T>(T Data)
         {
             var nums = Data as List<int>;
-            Dictionary<int, int> chache = new Dictionary<int, int>();
+            Dictionary<int, long> chache = new Dictionary<int, long>();
 
             long total = 0;
             foreach (var num in nums)
@@ -38,7 +38,7 @@ namespace Year2021.Days
                 }
                 else
                 {
-                    var result = Resultof(num, 80);
+                    var result = ResultOfPartTwo(num, 80);
                     chache.Add(num, result);
                     total += result;
                 }
@@ -48,7 +48,7 @@ namespace Year2021.Days
 
 
         //This implementaion is two slow for part Two 
-        public int Resultof(int startValue, int TimeSpan)
+        public long Resultof(int startValue, int TimeSpan)
         {
             List<int> nums = new List<int>();
             nums.Add(startValue);
@@ -75,21 +75,18 @@ namespace Year2021.Days
 
             return nums.Count;
         }
-
-        public static long ResultOfPartTwo(int startValue, int TimeSpan)
+        public long ResultOfPartTwo(int startValue, int TimeSpan)
         {
 
-            List<int> map = new List<int>();
-            for (int i = 0; i <= 8; i++)
-            {
-                    map.Add(0);
-            }
+            int[] map = new int[9];
             map[startValue]++;
+
+
             for (int i = 0; i < TimeSpan; i++)
             {
                 int TempNewOnce = 0;
 
-                for (int j = 0; j < map.Count - 1; j++)
+                for (int j = 0; j < map.Length - 1; j++)
                 {
                     if (j == 0)
                     {
