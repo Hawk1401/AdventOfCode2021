@@ -1,7 +1,7 @@
 
 # Advent Of Code 2021 with C#
 
-The goal is to play around and try new concepts in c#
+My personal goal is to have fun at finding new concepts in C#.
  
 
  
@@ -16,14 +16,12 @@ The goal is to play around and try new concepts in c#
 
 ## Add session token
 
-A session token is required to fetch the puzzle input. 
-There are two different ways to provide the session token 
+ A session token is required to fetch the puzzle input. There are two different ways to provide the session token.
 
 ### Add session token in source code
 
 
-Store the session token in the static variable "session",
-This variable can be found in the "DayRunner" class in the "Core" namespace.
+You can store the session token in the static variable "session". This variable can be found in the "DayRunner" class in the "Core" namespace.
 
 
 
@@ -36,14 +34,14 @@ It is also possible to store the session token as an environment variable. The n
 
 ### Find the session token:
 
-To find the session token you have to login to "adventofcode.com", open the dev tool, then Application → Cookies → https://adventofcode.com and finally copy the value of "Session".
+To find the session token you have to log in to the website "adventofcode.com", then open the dev tool, go to Application → Cookies → https://adventofcode.com and finally copy the value of "Session".
 
 
 
 
 ### Get started
 
-To start a riddle, the static method "run" of the class "DayRunner" must be called. This method gets an instance of the desired day. The days classes are in the namespace Year2021.Days.
+To start, the static method "run" of the class "DayRunner" must be called. This method gets an instance of the desired day. The days classes are in the namespace Year2021.Days.
 
 As an example, to solve the problem of day 4, the code would have to look like this :
 <pre><code class='language-cs'>
