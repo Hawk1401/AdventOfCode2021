@@ -25,6 +25,21 @@ namespace Year2021.Days
             return arg[0].Trim().Split(",").Select(x => int.Parse(x)).ToList();
         }
 
+        public long PartOne<T>(T Data)
+        {
+            var nums = Data as List<int>;
+
+            return Solve(nums, CalculateFuleConstantRate);
+        }
+
+        public long PartTwo<T>(T Data)
+        {
+            var nums = Data as List<int>;
+
+            return Solve(nums, CalculateFule);
+        }
+
+
 
         private Dictionary<int, int> GetMap(List<int> nums)
         {
@@ -40,35 +55,10 @@ namespace Year2021.Days
 
             return map;
         }
-        public long PartOne<T>(T Data)
+
+        private long CalculateFuleConstantRate(Dictionary<int, int> map, int dest)
         {
-            var nums = Data as List<int>;
-            var map = GetMap(nums);
-            nums.Sort();
-            int lowBound = nums[nums.Count / 3];
-            int upperBound = nums[nums.Count - 1];
-
-            HashSet<int> chache = new HashSet<int>();
-            long min = int.MaxValue;
-            for (int pos = lowBound; pos < upperBound; pos++)
-            {
-
-                if (chache.Contains(pos))
-                {
-                    continue;
-                }
-
-                var steps = CalculateFuleConstantRate(map, pos);
-                min = Math.Min(min, steps);
-
-                chache.Add(pos);
-            }
-            return min;
-        }
-
-        private int CalculateFuleConstantRate(Dictionary<int, int> map, int dest)
-        {
-            int Fule = 0;
+            long Fule = 0;
 
             foreach (var keyValuePair in map)
             {
@@ -96,24 +86,19 @@ namespace Year2021.Days
             {
                 return stepsChache[steps];
             }
-            long fule = 0;
 
-            for (int i = 1; i <= steps; i++)
-            {
-                fule += i;
-            }
+            long fule = (steps * (steps + 1)) / 2;
+
             stepsChache.Add(steps, fule);
 
             return fule;
         }
 
-        public long PartTwo<T>(T Data)
+        public long Solve(List<int> nums, Func<Dictionary<int, int> , int ,long> calculationFunction)
         {
-            var nums = Data as List<int>;
             var map = GetMap(nums);
-            nums.Sort();
-            int lowBound = nums[nums.Count / 3];
-            int upperBound = nums[nums.Count - 1];
+            int lowBound = map.Keys.Min();
+            int upperBound = map.Keys.Max();
 
             HashSet<int> chache = new HashSet<int>();
             long min = int.MaxValue;
@@ -125,12 +110,13 @@ namespace Year2021.Days
                     continue;
                 }
 
-                var steps = CalculateFule(map, pos);
+                var steps = calculationFunction.Invoke(map, pos);
                 min = Math.Min(min, steps);
 
                 chache.Add(pos);
             }
             return min;
         }
+
     }
 }
