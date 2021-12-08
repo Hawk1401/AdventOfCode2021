@@ -15,6 +15,7 @@ My personal goal is to have fun at finding new concepts in C#.
 |5    | ✔️     |    ✔️ |
 |6    | ✔️     |    ✔️ |
 |7    | ✔️     |    ✔️ |
+|8    | ✔️     |    ✔️ |
 
 
 ## Add session token
