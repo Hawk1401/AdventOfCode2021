@@ -12,7 +12,7 @@ namespace Core
         public int dayNumber { get; }
         public int year { get; }
         public long? FirstTestValue { get; }
-        public long? SecondTestValue { get; }
+        public long? SecondTestValue { get => null; }
         public string[] TestInput { get; }
 
 
