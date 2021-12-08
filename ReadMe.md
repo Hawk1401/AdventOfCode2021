@@ -1,7 +1,7 @@
 
 # Advent Of Code 2021 with C#
 
-My personal goal is to have fun at finding new concepts in C#.
+My personal goal is to have fun and try new concepts in C#.
  
 
  
