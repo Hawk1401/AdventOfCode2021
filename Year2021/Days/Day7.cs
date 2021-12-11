@@ -39,8 +39,6 @@ namespace Year2021.Days
             return Solve(nums, CalculateFule);
         }
 
-
-
         private Dictionary<int, int> GetMap(List<int> nums)
         {
             Dictionary<int, int> map = new Dictionary<int, int>();
@@ -56,30 +54,54 @@ namespace Year2021.Days
             return map;
         }
 
-        private long CalculateFuleConstantRate(Dictionary<int, int> map, int dest)
+        private (int[] arr, List<int> nums, int min, int max, int med) GetMapMinMaxAndMed(List<int> numsInput)
+        {
+            int[] map = new int[10000];
+            int min = int.MaxValue;
+            int max = int.MinValue;
+            int total = 0;
+            List<int> nums = new List<int>();
+            foreach (var x in numsInput)
+            {
+                total += x;
+                map[x]++;
+
+                min = Math.Min(x, min);
+                max = Math.Max(x, max);
+
+                if(map[x] == 1)
+                {
+                    nums.Add(x);
+                }
+            }
+
+            return (map, nums, min, max, total/ numsInput.Count);
+        }
+
+        private long CalculateFuleConstantRate(List<int> nums, int[] arr, int dest)
         {
             long Fule = 0;
 
-            foreach (var keyValuePair in map)
+            foreach (var num in nums)
             {
-                Fule += Math.Abs(keyValuePair.Key - dest) * keyValuePair.Value;
+                Fule += Math.Abs(num - dest) * arr[num];
             }
 
             return Fule;
         }
 
-        private long CalculateFule(Dictionary<int, int> map, int dest)
+        private long CalculateFule(List<int> nums, int[] arr, int dest)
         {
             long Fule = 0;
 
-            foreach (var keyValuePair in map)
+            foreach (var num in nums)
             {
-                Fule += CalculateFule(Math.Abs(keyValuePair.Key - dest)) * keyValuePair.Value;
+                Fule += CalculateFule(Math.Abs(num - dest)) * arr[num];
             }
 
             return Fule;
         }
-        
+
         private long CalculateFule(int steps)
         {
             if (stepsChache.ContainsKey(steps))
@@ -104,7 +126,6 @@ namespace Year2021.Days
             long min = int.MaxValue;
             for (int pos = lowBound; pos < upperBound; pos++)
             {
-
                 if (chache.Contains(pos))
                 {
                     continue;
@@ -118,5 +139,58 @@ namespace Year2021.Days
             return min;
         }
 
+        public long Solve(List<int> nums, Func<List<int>, int[], int, long> calculationFunction)
+        {
+            var mapNumsMaxMinMed = GetMapMinMaxAndMed(nums);
+            nums = mapNumsMaxMinMed.nums;
+            int lowBound = mapNumsMaxMinMed.min;
+            int upperBound = mapNumsMaxMinMed.max;
+
+            long[] chache = new long[upperBound+2];
+
+
+            long min = int.MaxValue;
+
+            for (int pos = mapNumsMaxMinMed.med; pos <= upperBound && pos >= lowBound;)
+            {
+
+                var steps = calcFule(chache, nums, mapNumsMaxMinMed.arr, pos, calculationFunction);
+                var stepsMinusOne = calcFule(chache, nums, mapNumsMaxMinMed.arr, pos-1, calculationFunction);
+                var stepsPlusOne = calcFule(chache, nums, mapNumsMaxMinMed.arr, pos+1, calculationFunction);
+
+
+                if(steps < stepsMinusOne &&
+                   steps < stepsPlusOne)
+                {
+                    return steps;
+                }
+
+                if (steps < stepsMinusOne)
+                {
+                    pos++;
+                }
+                else
+                {
+                    pos--;
+                }
+
+                min = steps;
+            }
+            return min;
+        }
+
+        public long calcFule(long[] chache, List<int> nums, int[] arr, int pos, Func<List<int>, int[], int, long> calculationFunction)
+        {
+            if(pos < 0)
+            {
+                return int.MaxValue;
+            }
+            if (chache[pos] == 0)
+            {
+                chache[pos] = calculationFunction.Invoke(nums, arr, pos);
+            }
+
+            return chache[pos];
+        }
     }
 }
