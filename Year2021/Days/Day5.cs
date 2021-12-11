@@ -48,18 +48,27 @@ namespace Year2021.Days
         {
             var Lines = Data as List<Line>;
 
-            var map = new Dictionary<(int x, int y), int>();
+
+            int[][] map = new int[1000][];
+            for (int i = 0; i < map.Length; i++)
+            {
+                map[i] = new int[1000];
+            }
+
+            long count = 0;
 
             foreach (var line in Lines)
             {
                 foreach (var point in line.GetPointsPartOne())
                 {
-                    AddPoint(point, map);
+                    if(AddPoint(point, map))
+                    {
+                        count++;
+                    }
                 }
             }
 
-            return map.Values.ToList().Where(x => x > 1).Count();
-
+            return count;
         }
 
         public void AddPoint((int x, int y) Point, Dictionary<(int x, int y), int> map)
@@ -72,21 +81,37 @@ namespace Year2021.Days
 
             map.Add(Point, 1);
         }
+
+        public bool AddPoint((int x, int y) Point, int[][] map)
+        {
+            map[Point.x][Point.y]++;
+            return map[Point.x][Point.y] == 2;
+        }
         public long PartTwo<T>(T Data)
         {
             var Lines = Data as List<Line>;
 
-            var map = new Dictionary<(int x, int y), int>();
+
+            int[][] map = new int[1000][];
+            for (int i = 0; i < map.Length; i++)
+            {
+                map[i] = new int[1000];
+            }
+
+            long count = 0;
 
             foreach (var line in Lines)
             {
                 foreach (var point in line.GetPointsPartTwo())
                 {
-                    AddPoint(point, map);
+                    if (AddPoint(point, map))
+                    {
+                        count++;
+                    }
                 }
             }
 
-            return map.Values.ToList().Where(x => x > 1).Count();
+            return count;
         }
 
         
