@@ -16,7 +16,8 @@ namespace Year2021
             //DayRunner.Run(new Day7());
             //DayRunner.Run(new Day8());
             //DayRunner.Run(new Day9());
-            DayRunner.Run(new Day10());
+            //DayRunner.Run(new Day10());
+            DayRunner.Run(new Day11());
 
         }
     }
