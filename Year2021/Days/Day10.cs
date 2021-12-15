@@ -13,8 +13,8 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 26397;
-        public long? SecondTestValue => 288957;
+        public IResult? FirstTestValue => new ResultLong(26397);
+        public IResult? SecondTestValue => new ResultLong(288957);
 
         public string[] TestInput => new string[]
         {
@@ -35,7 +35,7 @@ namespace Year2021.Days
             return arg;
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             string[] lines = Data as string[];
 
@@ -49,7 +49,7 @@ namespace Year2021.Days
                 }
             }
 
-            return totalError;
+            return new ResultLong(totalError);
         }
 
         private bool CheckLineForError(string line, out int error)
@@ -125,7 +125,7 @@ namespace Year2021.Days
         }
 
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             string[] lines = Data as string[];
 
@@ -139,7 +139,7 @@ namespace Year2021.Days
                 }
             }
             Scores.Sort();
-            return Scores[(Scores.Count / 2 )];
+            return new ResultLong(Scores[(Scores.Count / 2 )]);
         }
         private bool CheckLineForIncomplete(string line, out long score)
         {

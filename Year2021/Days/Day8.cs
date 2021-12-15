@@ -13,9 +13,9 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 26;
+        public IResult? FirstTestValue => new ResultLong(26);
 
-        public long? SecondTestValue => 61229;
+        public IResult? SecondTestValue => new ResultLong(61229);
 
         public string[] TestInput => new string[]{
         "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe",
@@ -41,7 +41,7 @@ namespace Year2021.Days
             return output;
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var strings = Data as string[][];
 
@@ -61,11 +61,11 @@ namespace Year2021.Days
                     }
                 }
             }
-            return count;
+            return new ResultLong(count);
 
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var Lines = Data as string[][];
 
@@ -79,7 +79,7 @@ namespace Year2021.Days
                 SumOfOutputs += mapper.MapOutput(line[1]);
             }
 
-            return SumOfOutputs;
+            return new ResultLong(SumOfOutputs);
         }
     }
 

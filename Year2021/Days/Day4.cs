@@ -9,9 +9,9 @@ namespace Year2021.Days
 {
     public class Day4 : IDay
     {
-        public long? FirstTestValue => 4512;
+        public IResult? FirstTestValue => new ResultLong(4512);
 
-        public long? SecondTestValue => 1924;
+        public IResult? SecondTestValue => new ResultLong(1924);
 
         public string[] TestInput => new string[]{
         "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1",
@@ -51,16 +51,16 @@ namespace Year2021.Days
             return new Bingo(BinogNumbers, boards);
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var game = Data as Bingo;
-            return game.Start();
+            return new ResultLong(game.Start());
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var game = Data as Bingo;
-            return game.GetLastWinning();
+            return new ResultLong(game.GetLastWinning());
         }
 
     }

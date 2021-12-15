@@ -9,9 +9,9 @@ namespace Year2021.Days
 {
     public class Day3 : IDay
     {
-        public long? FirstTestValue => 198;
+        public IResult? FirstTestValue => new ResultLong(198);
 
-        public long? SecondTestValue => 230;
+        public IResult? SecondTestValue => new ResultLong(230);
 
         public string[] TestInput => new string[]{
         "00100",
@@ -37,7 +37,7 @@ namespace Year2021.Days
             return arg.Select(x => x.Trim()).ToList();
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var Strings = Data as List<string>;
 
@@ -52,7 +52,7 @@ namespace Year2021.Days
             int epsilon = 0;
             ArrayToGammaAndEpsilon(bitcount, ref gamma, ref epsilon);
 
-            return gamma * epsilon;
+            return new ResultLong(gamma * epsilon);
         }
 
         private void ArrayToGammaAndEpsilon(int[] bitcount, ref int gamma, ref int epsilon)
@@ -88,7 +88,7 @@ namespace Year2021.Days
             }
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var Strings = Data as List<string>;
             int stringLength = Strings[0].Length;
@@ -111,7 +111,7 @@ namespace Year2021.Days
             int oxygenGenerator = Convert.ToInt32(oxygenGeneratorCandidates[0], 2);
             int scrubberRating = Convert.ToInt32(scrubberRatingCandidates[0], 2);
 
-            return oxygenGenerator * scrubberRating;
+            return new ResultLong(oxygenGenerator * scrubberRating);
         }
 
         public bool HasMoreOnes(List<string> strings, int index, out List<string> WithOnes, out List<string> WithZeros)

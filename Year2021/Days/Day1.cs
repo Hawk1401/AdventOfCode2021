@@ -9,9 +9,9 @@ namespace Year2021.Days
 {
     public class Day1 : IDay
     {
-        public long? FirstTestValue => 7;
+        public IResult? FirstTestValue => new ResultLong(7);
 
-        public long? SecondTestValue => 5;
+        public IResult? SecondTestValue => new ResultLong(5);
 
         public string[] TestInput => new string[] {
         "199",
@@ -36,7 +36,7 @@ namespace Year2021.Days
 
 
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var nums = Data as List<int>;
             int count = 0;
@@ -48,9 +48,9 @@ namespace Year2021.Days
                 }
             }
 
-            return count;
+            return new ResultLong(count);
         }
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var nums = Data as List<int>;
 
@@ -67,7 +67,7 @@ namespace Year2021.Days
                 prev = sum;
             }
 
-            return count;
+            return new ResultLong(count);
         }
     }
 

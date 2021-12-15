@@ -11,15 +11,15 @@ namespace Core
     {
         public int dayNumber { get; }
         public int year { get; }
-        public long? FirstTestValue { get; }
-        public long? SecondTestValue { get => null; }
+        public IResult? FirstTestValue { get; }
+        public IResult? SecondTestValue { get => null; }
         public string[] TestInput { get; }
 
 
 
         public object Parser(string[] arg);
-        public long PartOne<T>(T Data);
-        public long PartTwo<T>(T Data);
+        public IResult PartOne<T>(T Data);
+        public IResult PartTwo<T>(T Data);
 
 
 
@@ -43,13 +43,13 @@ namespace Core
 
         }
 
-        public (long testResult, long result) RunPartOne<I>(I testData, I data)
+        public (IResult testResult, IResult result) RunPartOne<I>(I testData, I data)
         {
             return (PartOne(testData), PartOne(data));
 
         }
 
-        public (long testResult, long result) RunPartTwo<I>(I testData, I data)
+        public (IResult testResult, IResult result) RunPartTwo<I>(I testData, I data)
         {
             return (PartTwo(testData), PartTwo(data));
         }

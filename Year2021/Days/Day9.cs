@@ -13,9 +13,9 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 15;
+        public IResult? FirstTestValue => new ResultLong(15);
 
-        public long? SecondTestValue => 1134;
+        public IResult? SecondTestValue => new ResultLong(1134);
 
         public string[] TestInput => new string[]{
         "2199943210",
@@ -37,7 +37,7 @@ namespace Year2021.Days
             return matrix;
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             int[][] matrix = Data as int[][];
 
@@ -54,7 +54,7 @@ namespace Year2021.Days
                 }
             }
 
-                 return smallest.Sum() + smallest.Count;
+                 return new ResultLong(smallest.Sum() + smallest.Count);
         }
 
         public bool IsSmallestNeighbor(int[][] matrix, int posx, int posy)
@@ -101,7 +101,7 @@ namespace Year2021.Days
             return true;
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             HashSet<(int x, int y)> setOfNumbers = new HashSet<(int x, int y)>();
             int[][] matrix = Data as int[][];
@@ -125,7 +125,7 @@ namespace Year2021.Days
 
             listOfPools = listOfPools.OrderBy(x => x.Count).Reverse().ToList();
 
-            return listOfPools[0].Count * listOfPools[1].Count * listOfPools[2].Count;
+            return new ResultLong(listOfPools[0].Count * listOfPools[1].Count * listOfPools[2].Count);
         }
 
 

@@ -13,9 +13,9 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 5934;
+        public IResult? FirstTestValue => new ResultLong(5934);
 
-        public long? SecondTestValue => 26984457539;
+        public IResult? SecondTestValue => new ResultLong(26984457539);
 
         public string[] TestInput => new string[] { "3,4,3,1,2" };
 
@@ -24,7 +24,7 @@ namespace Year2021.Days
             return arg[0].Trim().Split(",").Select(x => int.Parse(x)).ToList();
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var nums = Data as List<int>;
             Dictionary<int, long> chache = new Dictionary<int, long>();
@@ -43,7 +43,7 @@ namespace Year2021.Days
                     total += result;
                 }
             }
-            return total;
+            return new ResultLong(total);
         }
 
 
@@ -107,7 +107,7 @@ namespace Year2021.Days
             }
             return sum;
         }
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var nums = Data as List<int>;
             Dictionary<int, long> chache = new Dictionary<int, long>();
@@ -126,7 +126,7 @@ namespace Year2021.Days
                     total += result;
                 }
             }
-            return total;
+            return new ResultLong(total);
         }
     }
 }

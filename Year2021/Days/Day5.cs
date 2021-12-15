@@ -9,8 +9,8 @@ namespace Year2021.Days
 {
     public class Day5 : IDay
     {
-        public long? FirstTestValue => 5;
-        public long? SecondTestValue => 12;
+        public IResult? FirstTestValue => new ResultLong(5);
+        public IResult? SecondTestValue => new ResultLong(12);
         public int dayNumber => 5;
         public int year => 2021;
         public string[] TestInput => new string[]{
@@ -44,7 +44,7 @@ namespace Year2021.Days
                 );
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var Lines = Data as List<Line>;
 
@@ -68,7 +68,7 @@ namespace Year2021.Days
                 }
             }
 
-            return count;
+            return new ResultLong(count);
         }
 
         public void AddPoint((int x, int y) Point, Dictionary<(int x, int y), int> map)
@@ -87,7 +87,7 @@ namespace Year2021.Days
             map[Point.x][Point.y]++;
             return map[Point.x][Point.y] == 2;
         }
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var Lines = Data as List<Line>;
 
@@ -111,7 +111,7 @@ namespace Year2021.Days
                 }
             }
 
-            return count;
+            return new ResultLong(count);
         }
 
         

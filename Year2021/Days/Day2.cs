@@ -9,9 +9,9 @@ namespace Year2021.Days
 {
     public class Day2 : IDay
     {
-        public long? FirstTestValue => 150;
+        public IResult? FirstTestValue => new ResultLong(150);
 
-        public long? SecondTestValue => 900;
+        public IResult? SecondTestValue => new ResultLong(900);
 
         public string[] TestInput => new string[] {
         "forward 5",
@@ -31,7 +31,7 @@ namespace Year2021.Days
             return arg.Select(x => (x.Split(" ")[0], int.Parse(x.Split(" ")[1]))).ToList();
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var steps = Data as List<(string direction, int value)>;
             int horizontal = 0;
@@ -53,10 +53,10 @@ namespace Year2021.Days
                 }
             }
 
-            return horizontal * depth;
+            return new ResultLong(horizontal * depth);
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var steps = Data as List<(string direction, int value)>;
             int horizontal = 0;
@@ -80,7 +80,7 @@ namespace Year2021.Days
                 }
             }
 
-            return horizontal * depth;
+            return new ResultLong(horizontal * depth);
         }
     }
 

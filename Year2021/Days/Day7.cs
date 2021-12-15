@@ -13,9 +13,9 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 37;
+        public IResult? FirstTestValue => new ResultLong(37);
 
-        public long? SecondTestValue => 168;
+        public IResult? SecondTestValue => new ResultLong(168);
 
         public string[] TestInput => new string[] { "16,1,2,0,4,2,7,1,2,14" };
 
@@ -25,18 +25,18 @@ namespace Year2021.Days
             return arg[0].Trim().Split(",").Select(x => int.Parse(x)).ToList();
         }
 
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             var nums = Data as List<int>;
 
-            return Solve(nums, CalculateFuleConstantRate);
+            return new ResultLong(Solve(nums, CalculateFuleConstantRate));
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             var nums = Data as List<int>;
 
-            return Solve(nums, CalculateFule);
+            return new ResultLong(Solve(nums, CalculateFule));
         }
 
         private Dictionary<int, int> GetMap(List<int> nums)

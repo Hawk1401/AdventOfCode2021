@@ -13,8 +13,8 @@ namespace Year2021.Days
 
         public int year => 2021;
 
-        public long? FirstTestValue => 1656;
-        public long? SecondTestValue => 195;
+        public IResult? FirstTestValue => new ResultLong(1656);
+        public IResult? SecondTestValue => new ResultLong(195);
 
         public string[] TestInput => new string[] {
         "5483143223",
@@ -42,13 +42,13 @@ namespace Year2021.Days
 
 
         private long explosinCounterPartOne = 0;
-        public long PartOne<T>(T Data)
+        public IResult PartOne<T>(T Data)
         {
             int[][] matrix = Data as int[][];
 
             var watcher = new OctopusesWatcher(matrix);
 
-            return watcher.Run(100);
+            return new ResultLong(watcher.Run(100));
         }
 
 
@@ -85,13 +85,13 @@ namespace Year2021.Days
             }
         }
 
-        public long PartTwo<T>(T Data)
+        public IResult PartTwo<T>(T Data)
         {
             int[][] matrix = Data as int[][];
 
             var watcher = new OctopusesWatcher(matrix);
 
-            return watcher.AllFlashed();
+            return new ResultLong(watcher.AllFlashed());
         }
     }
 
