@@ -117,30 +117,41 @@ namespace Year2021.Days
             this.mapOfRiskLevel = mapOfRiskLevel;
         }
 
+        public int getFx((int x, int y) node, (int x, int y) end, int[][] map)
+        {
+            int _x = end.x - node.x;
+            int _y = end.y - node.y;
+            int Hx = _x + _y;
+            int Fx = map[node.y][node.x] + Hx;
+            return Fx;
+        }
         public long Run((int x, int y) start, (int x, int y) end)
         {
 
             List<(int x, int y)> OpenList = new List<(int x, int y)>();
             HashSet<(int x, int y)> CloseSet = new HashSet<(int x, int y)>();
-
+            SortedList<int, Stack<(int x, int y)>> OpenListSorted = new SortedList<int, Stack<(int x, int y)>>();
             int[][] map = new int[mapOfRiskLevel.Length][];
             for (int i = 0; i < mapOfRiskLevel.Length; i++)
             {
                 map[i] = new int[mapOfRiskLevel[i].Length];
             }
 
-            OpenList.Add((start.x, start.y));
-            //map[start.y][start.x] = mapOfRiskLevel[start.y][start.x];
-            
+            OpenList.Add(start);
+            var stack = new Stack<(int x, int y)>();
+            stack.Push(start);
+            OpenListSorted.Add(getFx(start, end, map), stack);
+
             while (OpenList.Count > 0)
             {
                 (int x, int y) curr = (-1, -1);
                 int min = int.MaxValue;
                 foreach (var item in OpenList)
                 {
-                    if (min > item.x + item.y)
+                    int Fx = getFx(item, end, map);
+                    if (min > Fx)
                     {
-                        min = item.x + item.y;
+                        min = Fx;
                         curr = item;
                     }
                 }

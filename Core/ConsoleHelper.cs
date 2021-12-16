@@ -13,7 +13,9 @@ namespace Core
             Console.WriteLine($"The Riddel From Day {day.dayNumber} Year {day.year}");
             Console.Write("The test for the first part was  : ");
             TestWas(day.FirstTestValue.HasSameValue(TestResultPartOne));
-            Console.WriteLine("The answer for the first Part is : " + ResultPartOne);
+            Console.WriteLine("The answer for the first Part is : ");
+            ResultPartOne.print();;
+
             Console.WriteLine("####################################################");
             Console.WriteLine("####################################################");
         }
