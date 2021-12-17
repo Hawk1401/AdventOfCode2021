@@ -111,13 +111,13 @@ namespace Year2021.Days
     public class AStar
     {
         private byte[][] mapOfRiskLevel;
-
+        private (int x, int y) end;
         public AStar(byte[][] mapOfRiskLevel)
         {
             this.mapOfRiskLevel = mapOfRiskLevel;
         }
 
-        public int getFx((int x, int y) node, (int x, int y) end, int[][] map)
+        public int getFx((int x, int y) node, int[][] map)
         {
             int _x = end.x - node.x;
             int _y = end.y - node.y;
@@ -127,7 +127,7 @@ namespace Year2021.Days
         }
         public long Run((int x, int y) start, (int x, int y) end)
         {
-
+            this.end = end;
             List<(int x, int y)> OpenList = new List<(int x, int y)>();
             HashSet<(int x, int y)> CloseSet = new HashSet<(int x, int y)>();
             SortedList<int, Stack<(int x, int y)>> OpenListSorted = new SortedList<int, Stack<(int x, int y)>>();
@@ -140,21 +140,11 @@ namespace Year2021.Days
             OpenList.Add(start);
             var stack = new Stack<(int x, int y)>();
             stack.Push(start);
-            OpenListSorted.Add(getFx(start, end, map), stack);
+            OpenListSorted.Add(getFx(start, map), stack);
 
             while (OpenList.Count > 0)
             {
-                (int x, int y) curr = (-1, -1);
-                int min = int.MaxValue;
-                foreach (var item in OpenList)
-                {
-                    int Fx = getFx(item, end, map);
-                    if (min > Fx)
-                    {
-                        min = Fx;
-                        curr = item;
-                    }
-                }
+                var curr = GetMinAndRemove(OpenListSorted);
 
                 if (curr == end)
                 {
@@ -163,26 +153,22 @@ namespace Year2021.Days
                     return f;
                 }
 
-                OpenList.Remove(curr);
+                //OpenList.Remove(curr);
                 CloseSet.Add(curr);
 
                 foreach (var neighbor in getNeighbors(curr))
                 {
-                    if (!OpenList.Contains(neighbor) && !CloseSet.Contains(neighbor))
-                    {
-                        OpenList.Add(neighbor);
-                    }
+                    //if (!OpenList.Contains(neighbor) && !CloseSet.Contains(neighbor))
+                    //{
+                    //    OpenList.Add(neighbor);
+                    //}
 
                     int f = map[curr.y][curr.x] + mapOfRiskLevel[neighbor.y][neighbor.x];
                     int oldF = map[neighbor.y][neighbor.x];
                     if (oldF == 0 || oldF > f)
                     {
                         map[neighbor.y][neighbor.x] = f;
-
-                        if (!OpenList.Contains(neighbor))
-                        {
-                            OpenList.Add(neighbor);
-                        }
+                        AddToSotredList(OpenListSorted, neighbor, map);
                     }
                 }
             }
@@ -190,6 +176,34 @@ namespace Year2021.Days
             return -1;
         }
 
+        private void AddToSotredList(SortedList<int, Stack<(int x, int y)>> OpenListSorted, (int x, int y) item, int[][] map)
+        {
+            var fx = getFx(item, map);
+
+            if (OpenListSorted.TryGetValue(fx, out Stack<(int x, int y)> stack))
+            {
+                stack.Push(item);
+            }
+            else
+            {
+                var _stack = new Stack<(int x, int y)>();
+                _stack.Push(item);
+                OpenListSorted.Add(fx, _stack);
+            }
+
+            
+        }
+        private (int x, int y) GetMinAndRemove(SortedList<int, Stack<(int x, int y)>> OpenListSorted)
+        {
+            var x = OpenListSorted.ElementAt(0).Value;
+            var result = x.Pop();
+            if(x.Count == 0)
+            {
+                OpenListSorted.RemoveAt(0);
+            }
+
+            return result;
+        }
         private List<(int x, int y)> getNeighbors((int x, int y) Start)
         {
             List<(int x, int y)> neighbors = new List<(int x, int y)>();

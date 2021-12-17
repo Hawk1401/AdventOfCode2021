@@ -53,7 +53,3 @@ namespace Year2021.Days
         }
     }
 }
-
-namespace Year2021.Days.ModelsDay16
-{
-}

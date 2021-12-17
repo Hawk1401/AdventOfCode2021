@@ -9,4 +9,10 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Days\ModelsDay11\" />
+    <Folder Include="Days\ModelsDay12\" />
+    <Folder Include="Days\ModelsDay13\" />
+  </ItemGroup>
+
 </Project>
