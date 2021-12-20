@@ -31,11 +31,6 @@ namespace Year2021.Days
 
         public object Parser(string[] arg)
         {
-            return arg;
-        }
-
-        public List<Snailfish> ParserForSnailfish(string[] arg)
-        {
             var result = new List<Snailfish>();
 
             foreach (var line in arg)
@@ -78,13 +73,12 @@ namespace Year2021.Days
 
         public IResult PartOne<T>(T Data)
         {
-            var listOfFishs = ParserForSnailfish(Data as string[]);
+            var Fishs = Data as List<Snailfish>;
 
-            Snailfish result = listOfFishs[0];
-
-            for (int i = 1; i < listOfFishs.Count; i++)
+            Snailfish result = Fishs[0].Copy();
+            for (int i = 1; i < Fishs.Count; i++)
             {
-                result = Snailfish.AddTwoSnailfishs(result, listOfFishs[i]);
+                result = Snailfish.AddTwoSnailfishs(result, Fishs[i].Copy());
             }
 
             return new ResultLong(result.GetMagnitude());
@@ -92,20 +86,21 @@ namespace Year2021.Days
 
         public IResult PartTwo<T>(T Data)
         {
-            var lines = (Data as string[]);
+            var Fishs = Data as List<Snailfish>;
+
 
             long max = long.MinValue;
 
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < Fishs.Count; i++)
             {
-                for (int j = 0; j < lines.Length; j++)
+                for (int j = 0; j < Fishs.Count; j++)
                 {
                     if(i == j)
                     {
                         continue;
                     }
 
-                    long v = Snailfish.AddTwoSnailfishs(Parser(lines[i]), Parser(lines[j])).GetMagnitude();
+                    long v = Snailfish.AddTwoSnailfishs(Fishs[i].Copy(), Fishs[j].Copy()).GetMagnitude();
                     max = Math.Max(max, v);
 
                 }
@@ -120,8 +115,8 @@ namespace Year2021.Days
     {
         public string Print();
         public void CreateNewMap(List<SnailfishNumber> map);
-
         public long GetMagnitude();
+
     }
 
 
@@ -447,18 +442,39 @@ namespace Year2021.Days
 
         public static void Explode(Snailfish result)
         {
-            result.UpdateNestCount();
-            result.CreateNewMap();
-            while (result.explode())
+            do
             {
                 result.UpdateNestCount();
                 result.CreateNewMap();
-            }
+
+            } while (result.explode());
         }
 
         public long GetMagnitude()
         {
             return (Subs[0].GetMagnitude() * 3) + (Subs[1].GetMagnitude() * 2);
          }
+
+
+        public Snailfish Copy()
+        {
+            var copy = new Snailfish();
+
+            foreach (var item in Subs)
+            {
+                if(item is Snailfish fish)
+                {
+                    copy.addNewFish(fish.Copy());
+                }
+                else
+                {
+                    var number = item as SnailfishNumber;
+
+                    copy.addNumber(number.Number);
+                }
+            }
+
+            return copy;
+        }
     }
 }
