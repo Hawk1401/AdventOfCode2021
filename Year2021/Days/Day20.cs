@@ -116,21 +116,7 @@ namespace Year2021.Days
             }
 
             bool ThePointsAreLit = true;
-            if (!image.ThePointsAreLit && Map[511])
-            {
-                ThePointsAreLit = true;
-                foreach (var pointToCheck in Neibors)
-                {
-                    var score = GetScore(pointToCheck, image);
-
-                    if (Map[score])
-                    {
-                        newPoints.Add(pointToCheck);
-                    }
-                }
-
-
-            }else if(image.ThePointsAreLit && Map[0])
+            if (image.ThePointsAreLit && Map[0])
             {
                 ThePointsAreLit = false;
 
@@ -143,18 +129,17 @@ namespace Year2021.Days
                         newPoints.Add(pointToCheck);
                     }
                 }
-            }
-            else
-            {
-                ThePointsAreLit = true;
-                foreach (var pointToCheck in Neibors)
-                {
-                    var score = GetScore(pointToCheck, image);
+                return new Image(newPoints, ThePointsAreLit);
 
-                    if (Map[score])
-                    {
-                        newPoints.Add(pointToCheck);
-                    }
+            }
+
+            foreach (var pointToCheck in Neibors)
+            {
+                var score = GetScore(pointToCheck, image);
+
+                if (Map[score])
+                {
+                    newPoints.Add(pointToCheck);
                 }
             }
 
